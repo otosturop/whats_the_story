@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:kartal/kartal.dart';
+import 'package:whats_the_story/feature/splash/view/splash_view.dart';
 import 'package:whats_the_story/product/constant/image_enum.dart';
 import 'package:email_validator/email_validator.dart';
 
 import '../../../product/widget/foundation_button.dart';
 import '../../../product/widget/social_login_button.dart';
-import '../../bottom_navigation_bar/view/bottom_bar_view.dart';
 import '../../profile/viewModel/profile_view_model.dart';
 import '../viewModel/login_view_model.dart';
 
@@ -92,7 +92,18 @@ class _SignInViewState extends State<SignInView> {
                                 ? const Spacer()
                                 : SocialLoginButton(
                                     buttonText: "Sign in with Google Account",
-                                    onPressed: () {},
+                                    onPressed: () async {
+                                      bool result = await loginViewModel.signInWithGoogle();
+                                      if (result) {
+                                        if (!mounted) return;
+                                        Provider.of<ProfileViewModel>(context, listen: false)
+                                            .getUserInfo()
+                                            .then((value) => Navigator.pushReplacement(
+                                                  context,
+                                                  MaterialPageRoute(builder: (context) => const SplashView()),
+                                                ));
+                                      }
+                                    },
                                     buttonColor: Colors.white,
                                     textColor: Colors.black87,
                                     buttonIcon: ImageEnum.google.toImage,
@@ -113,7 +124,7 @@ class _SignInViewState extends State<SignInView> {
                                               .getUserInfo()
                                               .then((value) => Navigator.pushReplacement(
                                                     context,
-                                                    MaterialPageRoute(builder: (context) => const BottomBarView()),
+                                                    MaterialPageRoute(builder: (context) => const SplashView()),
                                                   ));
                                         }
                                       }
@@ -149,7 +160,7 @@ class _SignInViewState extends State<SignInView> {
                                               .getUserInfo()
                                               .then((value) => Navigator.pushReplacement(
                                                     context,
-                                                    MaterialPageRoute(builder: (context) => const BottomBarView()),
+                                                    MaterialPageRoute(builder: (context) => const SplashView()),
                                                   ));
                                         }
                                       }

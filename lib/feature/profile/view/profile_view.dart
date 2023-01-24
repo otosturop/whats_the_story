@@ -8,6 +8,7 @@ import 'package:whats_the_story/product/cache_manager/cache_manager.dart';
 
 import '../../../product/constant/image_enum.dart';
 import '../../../product/widget/foundation_button.dart';
+import '../../../product/widget/network_avatar_image.dart';
 import '../../bottom_navigation_bar/viewModel/bottom_bar_view_model.dart';
 import '../../login/view/sign_in_view.dart';
 
@@ -51,8 +52,10 @@ class _ProfileViewState extends State<ProfileView> with CacheManager {
             leading: profile.avatarUrl != "-"
                 ? Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: networkAvatarImage('${profile.baseUrl}${profile.profileData!.avatarUrl}'),
-                  )
+                    child: NetworkAvatarImage(
+                        avatarUrl: profile.profileData!.avatarUrl!,
+                        baseUrl: profile.baseUrl,
+                        isGoogle: profile.profileData!.isGoogle!))
                 : Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: InkWell(
@@ -192,23 +195,6 @@ class _ProfileViewState extends State<ProfileView> with CacheManager {
               color: Theme.of(context).colorScheme.primary,
             )),
         onChanged: textChange,
-      ),
-    );
-  }
-
-  Widget networkAvatarImage(String userUrl) {
-    return Container(
-      decoration: const BoxDecoration(
-        color: Colors.red,
-        shape: BoxShape.circle,
-      ),
-      child: CircleAvatar(
-        radius: 40,
-        child: ClipOval(
-            child: Image.network(
-          userUrl,
-          fit: BoxFit.cover,
-        )),
       ),
     );
   }

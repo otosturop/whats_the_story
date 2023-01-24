@@ -25,8 +25,9 @@ class ProfileData {
   String? username;
   String? instagram;
   String? avatarUrl;
+  String? isGoogle;
 
-  ProfileData({this.fullname, this.email, this.username, this.instagram});
+  ProfileData({this.fullname, this.email, this.username, this.instagram, this.avatarUrl, this.isGoogle});
 
   ProfileData.fromJson(Map<String, dynamic> json) {
     fullname = json['fullname'];
@@ -34,6 +35,7 @@ class ProfileData {
     username = json['username'];
     instagram = json['instagram'];
     avatarUrl = json['avatar_url'];
+    isGoogle = json['is_google'];
   }
 
   Map<String, dynamic> toJson() {
@@ -43,6 +45,7 @@ class ProfileData {
     data['username'] = username;
     data['instagram'] = instagram;
     data['avatar_url'] = avatarUrl;
+    data['is_google'] = isGoogle;
     return data;
   }
 }

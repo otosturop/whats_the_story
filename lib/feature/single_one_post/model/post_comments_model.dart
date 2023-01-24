@@ -29,9 +29,10 @@ class Data {
   String? postId;
   String? fullname;
   String? avatarUrl;
+  String? isGoogle;
   String? date;
 
-  Data({this.description, this.postId, this.fullname, this.date});
+  Data({this.description, this.postId, this.fullname, this.avatarUrl, this.isGoogle, this.date});
 
   String get fixedDate {
     int dateLength = date?.length ?? 0;
@@ -47,6 +48,7 @@ class Data {
     postId = json['post_id'];
     fullname = json['fullname'];
     avatarUrl = json['avatar_url'];
+    isGoogle = json['is_google'];
     date = json['date'];
   }
 
@@ -56,6 +58,7 @@ class Data {
     data['post_id'] = postId;
     data['fullname'] = fullname;
     data['avatar_url'] = avatarUrl;
+    data['is_google'] = isGoogle;
     data['date'] = date;
     return data;
   }

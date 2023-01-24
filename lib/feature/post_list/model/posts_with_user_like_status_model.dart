@@ -30,6 +30,7 @@ class Data {
   String? imageUrl;
   String? fullname;
   String? avatarUrl;
+  String? isGoogle;
   String? post;
   String? subject;
   String? date;
@@ -41,6 +42,7 @@ class Data {
       this.imageUrl,
       this.fullname,
       this.avatarUrl,
+      this.isGoogle,
       this.post,
       this.subject,
       this.date,
@@ -61,6 +63,7 @@ class Data {
     imageUrl = json['image_url'];
     fullname = json['fullname'];
     avatarUrl = json['avatar_url'];
+    isGoogle = json['is_google'];
     post = json['post'];
     subject = json['subject'];
     date = json['date'];
@@ -74,6 +77,7 @@ class Data {
     data['image_url'] = imageUrl;
     data['fullname'] = fullname;
     data['avatar_url'] = avatarUrl;
+    data['is_google'] = isGoogle;
     data['post'] = post;
     data['subject'] = subject;
     data['date'] = date;

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../model/insert_user_model.dart';
 import '../model/login_model.dart';
@@ -10,11 +11,14 @@ abstract class ILoginService {
   ILoginService(this.dio);
 
   Future<LoginModel?> doLogin(String userInput, String password);
-  Future<InsertUserModel?> insertUser(String fullname, String email, String password, String deviceInfo);
+  Future<InsertUserModel?> insertUser(
+      String fullname, String email, String password, String deviceInfo, String? avatarUrl);
+  Future<GoogleSignInAccount?> registerWithGoogle();
 }
 
 class LoginService extends ILoginService {
   LoginService(super.dio);
+  static final _googleSignIn = GoogleSignIn();
 
   @override
   Future<LoginModel?> doLogin(String userInput, String password) async {
@@ -34,12 +38,14 @@ class LoginService extends ILoginService {
   }
 
   @override
-  Future<InsertUserModel?> insertUser(String fullname, String email, String password, String deviceInfo) async {
+  Future<InsertUserModel?> insertUser(
+      String fullname, String email, String password, String deviceInfo, String? avatarUrl) async {
     FormData postData = FormData.fromMap({
       'full_name': fullname,
       'email': email,
       'phone_brand': deviceInfo,
       'password': password,
+      'avatar_url': avatarUrl ?? "-",
     });
     final response = await dio.post("users/insert_user", data: postData);
     if (response.statusCode == HttpStatus.ok) {
@@ -49,5 +55,10 @@ class LoginService extends ILoginService {
       }
     }
     return null;
+  }
+
+  @override
+  Future<GoogleSignInAccount?> registerWithGoogle() {
+    return _googleSignIn.signIn();
   }
 }

@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget with ProjectDioMixin {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: "What's Your Story?",
+        title: "What's the Story",
         builder: MainBuild.build,
         home: const SplashView(),
         theme: ThemeData.light().copyWith(

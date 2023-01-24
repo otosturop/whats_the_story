@@ -174,7 +174,8 @@ class _SingleOnePostState extends State<SingleOnePost> with ProjectDioMixin, Cac
                 ],
               ),
               child: profile.avatarUrl != "-"
-                  ? myCircleAvatar(48.0, 48.0, '${profile.baseUrl}/${profile.profileData!.avatarUrl}')
+                  ? myCircleAvatar(48.0, 48.0, '${profile.baseUrl}/', '${profile.profileData!.avatarUrl}',
+                      profile.profileData!.isGoogle)
                   : myDefaultAvatar(),
             ),
             suffixIcon: Container(
@@ -223,7 +224,7 @@ class _SingleOnePostState extends State<SingleOnePost> with ProjectDioMixin, Cac
                 ],
               ),
               child: comment.avatarUrl != "-"
-                  ? myCircleAvatar(50.0, 50.0, myBaseUrl + comment.avatarUrl)
+                  ? myCircleAvatar(50.0, 50.0, myBaseUrl, comment.avatarUrl, comment.isGoogle)
                   : myDefaultAvatar(),
             ),
             title: Text(
@@ -277,7 +278,7 @@ class _SingleOnePostState extends State<SingleOnePost> with ProjectDioMixin, Cac
                 ],
               ),
               child: profile.avatarUrl != "-"
-                  ? myCircleAvatar(50.0, 50.0, '${profile.baseUrl}/${postData.avatarUrl}')
+                  ? myCircleAvatar(50.0, 50.0, '${profile.baseUrl}/', '${postData.avatarUrl}', postData.isGoogle)
                   : myDefaultAvatar(),
             ),
             title: Text(
@@ -298,13 +299,13 @@ class _SingleOnePostState extends State<SingleOnePost> with ProjectDioMixin, Cac
     );
   }
 
-  Widget myCircleAvatar(double myHeight, double myWidth, String imagePath) {
+  Widget myCircleAvatar(double myHeight, double myWidth, String baseUrl, String imagePath, String isGoogle) {
     return CircleAvatar(
       child: ClipOval(
         child: Image.network(
           height: myHeight,
           width: myWidth,
-          imagePath,
+          isGoogle == "1" ? imagePath : "$baseUrl$imagePath",
           fit: BoxFit.cover,
         ),
       ),

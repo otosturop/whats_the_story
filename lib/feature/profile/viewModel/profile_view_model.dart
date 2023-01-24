@@ -47,6 +47,7 @@ class ProfileViewModel with ChangeNotifier, CacheManager {
     bool result = await removeUser();
     profileData = null;
     userId = "0";
+    await profileService.logOutGoogleAccount();
     if (result) {
       return true;
     } else {

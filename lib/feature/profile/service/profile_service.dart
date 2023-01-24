@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:whats_the_story/feature/profile/model/update_profile_model.dart';
 import 'package:whats_the_story/feature/profile/model/upload_image_model.dart';
 import 'dart:io';
@@ -13,10 +14,12 @@ abstract class IUserProfileService {
   Future<UserProfileModel?> getUserProfile(String userId);
   Future<bool> updateUserProfile(String userId, ProfileData? prodata);
   Future<bool> uploadAvatarImage(String userId, File avatarImage);
+  Future<void> logOutGoogleAccount();
 }
 
 class UserProfileService extends IUserProfileService {
   UserProfileService(super.dio);
+  static final _googleSignIn = GoogleSignIn();
 
   @override
   Future<UserProfileModel?> getUserProfile(String userId) async {
@@ -50,6 +53,11 @@ class UserProfileService extends IUserProfileService {
       }
     }
     return false;
+  }
+
+  @override
+  Future<void> logOutGoogleAccount() async {
+    _googleSignIn.disconnect();
   }
 
   @override
