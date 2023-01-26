@@ -14,7 +14,6 @@ import './product/auth_manager/auth_manager.dart';
 import './product/service/project_service.dart';
 
 import 'feature/bottom_navigation_bar/viewModel/bottom_bar_view_model.dart';
-import 'feature/like_posts/service/like_posts_service.dart';
 import 'feature/like_posts/view_model/like_posts_view_model.dart';
 import 'feature/post_list/service/post_service.dart';
 import 'feature/single_one_post/service/comments_service.dart';
@@ -36,8 +35,10 @@ class MyApp extends StatelessWidget with ProjectDioMixin {
         ChangeNotifierProvider(create: (_) => PostsViewModel(PostService(service))),
         ChangeNotifierProvider<BottomBarViewModel>(create: (_) => BottomBarViewModel()),
         ChangeNotifierProvider<ProfileViewModel>(create: (_) => ProfileViewModel(UserProfileService(service))),
-        ChangeNotifierProvider<PostsLikeViewModel>(
-            create: (_) => PostsLikeViewModel(LikePostsService(service), PostService(service))),
+        ChangeNotifierProxyProvider<PostsViewModel, PostsLikeViewModel>(
+          create: (BuildContext context) => PostsLikeViewModel(post: PostsViewModel(PostService(service))),
+          update: (BuildContext context, PostsViewModel postModel, _) => PostsLikeViewModel(post: postModel),
+        ),
         ChangeNotifierProxyProvider<PostsViewModel, SplashViewModel>(
           create: (BuildContext context) =>
               SplashViewModel(userService: UserService(service), post: PostsViewModel(PostService(service))),

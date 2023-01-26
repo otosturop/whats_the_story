@@ -71,15 +71,15 @@ class PostsViewModel extends ChangeNotifier {
 
   Future<void> changeLikeStatus(String postId, int status) async {
     if (isLogin) {
-      for (var element in posts) {
-        if (element.id == postId) {
+      for (var post in posts) {
+        if (post.id == postId) {
           if (status == 1) {
             await postService.unLikedPost(userId, postId);
-            element.status = -1;
+            post.status = -1;
             increaseDecreaseLike(postId, -1);
           } else {
             await postService.likedPost(userId, postId);
-            element.status = 1;
+            post.status = 1;
             increaseDecreaseLike(postId, 1);
           }
         }

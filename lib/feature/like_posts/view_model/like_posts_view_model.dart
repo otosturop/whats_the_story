@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:whats_the_story/feature/like_posts/model/like_pots_model.dart';
-import 'package:whats_the_story/feature/like_posts/service/like_posts_service.dart';
 import 'package:whats_the_story/product/cache_manager/cache_manager.dart';
-
-import '../../post_list/service/post_service.dart';
+import '../../post_list/model/posts_with_user_like_status_model.dart';
+import '../../post_list/viewModel/posts_view_model.dart';
 
 class PostsLikeViewModel with ChangeNotifier, CacheManager {
-  final ILikePostsService likePostService;
-  final IPostService postService;
+  final PostsViewModel post;
   bool isLoading = false;
   late String userId;
   String baseUrl = 'http://whatsyourstory.massviptransfer.com';
-  List<Data> posts = [];
+  List<Data> likePosts = [];
 
-  PostsLikeViewModel(this.likePostService, this.postService) {
-    _fetchPosts();
+  PostsLikeViewModel({required this.post}) {
+    getLikePosts();
   }
 
   void _changeLoading() {
@@ -22,18 +19,13 @@ class PostsLikeViewModel with ChangeNotifier, CacheManager {
     notifyListeners();
   }
 
-  Future<void> _fetchPosts() async {
-    _changeLoading();
-    userId = await getUserId() ?? "0";
-    posts = (await likePostService.fetchLikePosts(userId))?.data ?? [];
-    _changeLoading();
+  void getLikePosts() {
+    likePosts = post.posts.where((post) => post.status == 1).toList();
   }
 
   Future<void> disLikePost(String postId) async {
     _changeLoading();
-    await postService.unLikedPost(userId, postId);
-    posts.removeWhere((element) => element.id == postId);
-    notifyListeners();
+    await post.changeLikeStatus(postId, 1);
     _changeLoading();
   }
 }
