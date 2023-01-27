@@ -2,15 +2,14 @@
 
 What's the Story
 
-## Getting Started
+## Description
 
-This project is a starting point for a Flutter application.
+A social media platform where you can share English content, ask phrasal verbs, and learn English for free.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Used technologies
+- Architecture MVVM
+- State Managment: Provider
+- Network Management: Dio
+## Screenshots
+[secrenshot](https://play-lh.googleusercontent.com/JjDu2DWB2qPgSdunzT5WwLblOaA8KimyEIAGjwk_5I-wJZmvbZzsHDqStIWeSKLTEQ=w526-h296-rw)
+[secrenshot](https://play-lh.googleusercontent.com/JGE3001FjRrf50WUCMc8UiHTRq1vtULVOpfawbRYvL4zV6x5G5UHh9WJ3HzArXoWsbY=w526-h296-rw)
