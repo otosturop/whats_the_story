@@ -1,8 +1,4 @@
-# whats_the_story
-
-What's the Story
-
-## Description
+# What's the Story
 
 A social media platform where you can share English content, ask phrasal verbs, and learn English for free.
 
